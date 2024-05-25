@@ -1,0 +1,73 @@
+.container.raceSigns {
+  padding-top: 100px;
+  padding-bottom: 100px;
+  display: block;
+  margin: 0 auto;
+  height: auto;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  word-wrap: normal;
+}
+
+.container.raceSign {
+  display: block;
+  margin: 0 auto;
+  height: auto;
+  text-align: center;
+}
+
+.row.photo {
+  margin: 0 auto;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.signPhoto {
+  margin: 0 auto;
+
+  min-height: 360px;
+  max-width: 400px;
+  max-height: 360px;
+
+  border-radius: 10px;
+}
+
+p,
+h4 {
+  margin: -1px auto;
+  color: rgb(0, 0, 0);
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .container {
+    margin: 0px auto;
+  }
+
+  .carousel {
+    min-width: 0vw;
+    z-index: 1;
+    margin-bottom: 20vw;
+  }
+
+  .carousel-control-prev,
+  .carousel-control-prev-icon,
+  .carousel-control-next,
+  .carousel-control-next-icon {
+    z-index: 2;
+  }
+
+  .carousel-caption .d-inline .d-md-block {
+    margin: 2vw auto;
+    overflow: hidden;
+    position: sticky;
+    top: 100%;
+    text-align: center;
+  }
+
+  .carousel,
+  .w-100,
+  img {
+    border-radius: 0px;
+  }
+}

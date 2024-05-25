@@ -1,0 +1,33 @@
+import React from "react";
+import "./App.css";
+import Rainbow from "../src/assets/rainbow.jpg";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import "bootstrap-icons/font/bootstrap-icons.css";
+
+function App() {
+  return (
+    <div className="container-fluid home">
+      <h3>
+        <span style={{ fontSize: "150px" }}>T</span>
+        <span style={{ marginLeft: "-25px" }}>errific </span>
+        <span style={{ fontSize: "150px", marginLeft: "-20px" }}>T</span>
+        <span style={{ marginLeft: "-25px" }}>en</span>
+      </h3>
+      <br />
+      <br />
+      <h4 style={{ fontWeight: "bold" }}>
+        Welcome to the official North Carolina Race Headquarters!
+      </h4>
+      <p>
+        The Race is an annual event that occurs every Labor Day weekend. This
+        event is to commemorate the creation of the 'Terrific Ten' which takes
+        place from Friday to Monday!
+      </p>
+      <img id="rainbowImg" src={Rainbow} alt="Rainbow over Little Lake" />
+    </div>
+  );
+}
+
+export default App;

@@ -1,0 +1,19 @@
+$navbar-bg-color: black; /* Changed to black */
+
+.container-fluid.navigation {
+  background-color: $navbar-bg-color;
+}
+
+.navbar-toggler {
+  &.navbar-toggler-white {
+    background-color: white;
+  }
+}
+
+.nav-item:after {
+  background: white;
+}
+
+.navbar-nav .nav-item .nav-link.active-link {
+  text-decoration-color: white;
+}
