@@ -12,6 +12,20 @@
   word-wrap: normal;
 }
 
+.yearButton {
+  border-radius: 10px;
+  width: 100px;
+  background-color: white;
+  margin-bottom: 10px;
+}
+.yearButton:focus {
+  background-color: black;
+  color: white;
+}
+.yearButton:hover {
+  background-color: black;
+  color: white;
+}
 .toolButtonContainer {
   display: flex;
   flex-direction: row-reverse;

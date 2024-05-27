@@ -1,5 +1,6 @@
 import React from "react";
 import { auth } from "../../config/firebase";
+import "./account.css";
 
 export const Account = () => {
   const logout = async () => {
@@ -11,5 +12,9 @@ export const Account = () => {
     }
   };
 
-  return <button onClick={logout}>Logout</button>;
+  return (
+    <div className="container-fluid account">
+      <button onClick={logout}>Logout</button>
+    </div>
+  );
 };

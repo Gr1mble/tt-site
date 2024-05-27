@@ -5,12 +5,14 @@ import { ref, getDownloadURL } from "firebase/storage";
 import "./raceSigns.css";
 
 export const RaceSigns = () => {
-  const [raceSigns, setRaceSigns] = useState([]);
-
-  const raceSignsCollectionRef = collection(db, "raceSigns");
+  const [dataMap, setDataMap] = useState({});
 
   useEffect(() => {
+    const raceSignsCollectionRef = collection(db, "raceSigns");
+
     const unsubscribe = onSnapshot(raceSignsCollectionRef, async (snapshot) => {
+      const signsMap = {};
+
       const dataPromises = snapshot.docs.map(async (doc) => {
         const docData = doc.data();
         let photoURL = "";
@@ -23,16 +25,18 @@ export const RaceSigns = () => {
         }
         return {
           id: doc.id,
-          title: docData.title,
-          photo: photoURL,
           ...docData,
+          photo: photoURL,
         };
       });
 
       try {
         const filteredData = await Promise.all(dataPromises);
-        filteredData.sort((a, b) => b.year.localeCompare(a.year));
-        setRaceSigns(filteredData);
+        filteredData.sort((a, b) => b.year.localeCompare(a.year)); // Sort data before mapping to hashmap
+        filteredData.forEach((item) => {
+          signsMap[item.id] = item;
+        });
+        setDataMap(signsMap);
       } catch (error) {
         console.error("Error processing race signs:", error);
       }
@@ -53,15 +57,11 @@ export const RaceSigns = () => {
       <br />
       <div className="container raceSign text-center">
         <div className="row">
-          {raceSigns.map((raceSign) => (
-            <div className="col" key={raceSign.id}>
-              <p className="row photo">{raceSign.title}</p>
-              <img
-                className="row signPhoto"
-                src={raceSign.photo}
-                alt={raceSign.title}
-              />
-              <p className="row photo">{raceSign.desc}</p>
+          {Object.entries(dataMap).map(([id, item]) => (
+            <div className="col item" key={id}>
+              <h2 className="photo">{item.title}</h2>
+              <img className="signPhoto" src={item.photo} alt={item.title} />
+              <p className="photo">{item.desc}</p>
             </div>
           ))}
         </div>

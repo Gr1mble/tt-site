@@ -15,12 +15,12 @@
   border-radius: 5px;
 }
 
-option {
+.gameButtons {
   border: black 2px solid;
   border-radius: 5px;
 }
 
-option:hover {
+.gameButtons:hover {
   background-color: black;
   color: white;
 }
@@ -32,14 +32,14 @@ option:hover {
 
 .accordion-button {
   background-color: black;
-  color: white;
+  color: #cc0000;
   padding-top: 10px;
   padding-bottom: 10px;
 }
 
 .accordion-button:not(.collapsed) {
   background-color: black;
-  color: #cc0000;
+  color: white;
 }
 
 .gameButtons {

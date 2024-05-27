@@ -9,7 +9,7 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Alert } from "react-bootstrap";
 
 export const Racenotes = () => {
   const [notes, setNotes] = useState([]);
@@ -19,6 +19,8 @@ export const Racenotes = () => {
   const [selectedNote, setSelectedNote] = useState(null);
 
   const notesCollectionRef = collection(db, "notes");
+
+  const [active, setActive] = useState(0);
 
   const getNotes = async () => {
     try {
@@ -75,11 +77,11 @@ export const Racenotes = () => {
           year: newYear,
         });
         await getNotes();
-        toggleModal();
       } else {
       }
     } catch (error) {
       console.log(error);
+      alert("Please select a year");
     }
   };
 
@@ -90,8 +92,6 @@ export const Racenotes = () => {
   const showNote = (note) => () => {
     setSelectedNote(note);
     setNewDescription(note.description);
-    console.log("Selected Note:", note);
-    console.log("New Description:", note.description);
     setNewYear(note.year);
   };
 
@@ -173,9 +173,11 @@ export const Racenotes = () => {
         <div className="col-sm">
           {notes
             .sort((a, b) => b.year - a.year)
-            .map((note) => (
+            .map((note, idx) => (
               <div className="col-lg" key={note.id}>
-                <button onClick={showNote(note)}>{note.year}</button>
+                <button className="yearButton" onClick={showNote(note)}>
+                  {note.year}
+                </button>
               </div>
             ))}
         </div>
@@ -187,7 +189,7 @@ export const Racenotes = () => {
 
       <Modal show={modalShow} onHide={toggleModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Note</Modal.Title>
+          <Modal.Title>Notes</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <input
