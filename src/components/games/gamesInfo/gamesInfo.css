@@ -25,23 +25,6 @@
   color: white;
 }
 
-.accordion {
-  margin: 0 auto;
-  max-width: 500px;
-}
-
-.accordion-button {
-  background-color: black;
-  color: #cc0000;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-.accordion-button:not(.collapsed) {
-  background-color: black;
-  color: white;
-}
-
 .gameButtons {
   padding: 10px;
   margin: 10px;
@@ -49,4 +32,12 @@
   color: black;
   border: 2px solid black;
   border-radius: 5px;
+}
+
+.yearlyWinners {
+  margin: 20px;
+}
+
+#dropdown-basic {
+  background-color: black;
 }

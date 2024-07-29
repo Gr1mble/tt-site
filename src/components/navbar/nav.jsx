@@ -127,7 +127,7 @@ export const Nav = () => {
                 </li>
                 <li>
                   <Link
-                    to="/gamesigns"
+                    to="/gameSigns"
                     className="dropdown-item"
                     onClick={handleLinkClick}
                   >
@@ -145,37 +145,14 @@ export const Nav = () => {
                 </li>
               </ul>
             </li>
-            <li className="nav-item dropdown">
+            <li className="nav-item">
               <Link
-                className="nav-link dropdown-toggle"
-                to="#"
-                id="navbarDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
+                to="/foodMenu"
+                className="nav-link"
+                onClick={handleLinkClick}
               >
-                Food
+                Menu
               </Link>
-              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li>
-                  <Link
-                    to="/foodmenu"
-                    className="dropdown-item"
-                    onClick={handleLinkClick}
-                  >
-                    Menu
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/foodform"
-                    className="dropdown-item"
-                    onClick={handleLinkClick}
-                  >
-                    Form
-                  </Link>
-                </li>
-              </ul>
             </li>
             <li className="nav-item">
               <Link

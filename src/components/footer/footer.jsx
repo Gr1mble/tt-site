@@ -7,7 +7,7 @@ export const Footer = () => {
       <div className="row">
         <div className="col-2"></div>
         <div className="col-8">
-          <h1>Terrific Ten</h1>
+          <h1 className="footerHeader">Terrific Ten</h1>
           <h1>
             <a
               className="aFooter"

@@ -9,7 +9,7 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-import { Modal, Button, Alert } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 
 export const Racenotes = () => {
   const [notes, setNotes] = useState([]);
@@ -19,8 +19,6 @@ export const Racenotes = () => {
   const [selectedNote, setSelectedNote] = useState(null);
 
   const notesCollectionRef = collection(db, "notes");
-
-  const [active, setActive] = useState(0);
 
   const getNotes = async () => {
     try {
