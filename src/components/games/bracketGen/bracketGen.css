@@ -1,0 +1,76 @@
+.container-fluid.bracketGen {
+  padding-top: 100px;
+  padding-bottom: 100px;
+  display: block;
+  margin: 0 auto;
+  height: auto;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  word-wrap: normal;
+}
+
+.container-fluid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.bracketSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bracket {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.round {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.match {
+  display: flex;
+  align-items: center;
+}
+
+.player {
+  margin: 10px;
+  padding: 5px 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  text-align: center;
+  min-width: 100px;
+}
+
+.line {
+  width: 2px;
+  height: 30px;
+  background-color: #000;
+  margin: 0 5px;
+}
+
+.connector {
+  width: 20px;
+  height: 20px;
+  border-left: 2px solid #000;
+  border-top: 2px solid #000;
+  margin: -10px 0 10px;
+}
+
+.connector::before {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 20px;
+  background: #000;
+  position: relative;
+  top: 10px;
+  left: 0;
+}
