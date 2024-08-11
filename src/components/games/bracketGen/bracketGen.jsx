@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import { db } from "../../../config/firebase";
 import "./bracketGen.css";
 
@@ -7,6 +13,7 @@ export const BracketGen = () => {
   const [players, setPlayers] = useState([]);
   const [playerName, setPlayerName] = useState("");
   const [bracket, setBracket] = useState([]);
+  const [error, setError] = useState("");
 
   const playerCollectionRef = collection(db, "players");
 
@@ -29,30 +36,54 @@ export const BracketGen = () => {
 
   const insertToFire = async () => {
     try {
+      if (playerName.trim() === "") {
+        setError("Player name cannot be empty.");
+        return;
+      }
+      if (
+        players.some(
+          (player) => player.raceName.toLowerCase() === playerName.toLowerCase()
+        )
+      ) {
+        setError("Player name already exists.");
+        return;
+      }
+
       await addDoc(playerCollectionRef, { raceName: playerName });
       resetStates();
       getPlayers();
     } catch (error) {
       console.error("Error adding player:", error);
+      setError("An error occurred while adding the player. Please try again.");
+    }
+  };
+
+  const deletePlayer = async (id) => {
+    try {
+      await deleteDoc(doc(db, "players", id));
+      getPlayers();
+    } catch (error) {
+      console.error("Error deleting player:", error);
+      setError(
+        "An error occurred while deleting the player. Please try again."
+      );
     }
   };
 
   const resetStates = () => {
     setPlayerName("");
+    setError("");
   };
 
   const generateBracket = () => {
     let shuffledPlayers = [...players].sort(() => 0.5 - Math.random());
     const pairs = [];
 
-    // If odd number of players, give the last one a bye in the first round
     if (shuffledPlayers.length % 2 !== 0) {
-      // Remove and store the last player from the list for the bye
       const byePlayer = shuffledPlayers.pop();
-      pairs.push([byePlayer, null]); // Pair with null to indicate a bye
+      pairs.push([byePlayer, null]);
     }
 
-    // Create pairs for the remaining players
     for (let i = 0; i < shuffledPlayers.length; i += 2) {
       pairs.push([shuffledPlayers[i], shuffledPlayers[i + 1]]);
     }
@@ -69,15 +100,23 @@ export const BracketGen = () => {
           onChange={(e) => setPlayerName(e.target.value)}
         />
         <button onClick={insertToFire}>Submit</button>
+        {error && <p className="error">{error}</p>}
       </div>
       <div className="playerList">
         <h2>Players</h2>
         <ul>
           {players.map((player) => (
-            <li key={player.id}>{player.raceName}</li>
+            <li
+              key={player.id}
+              className="playerItem"
+              onClick={() => deletePlayer(player.id)}
+            >
+              {player.raceName}
+            </li>
           ))}
         </ul>
       </div>
+
       <div className="bracketSection">
         <h2>Tournament Bracket</h2>
         <button onClick={generateBracket}>Generate Bracket</button>

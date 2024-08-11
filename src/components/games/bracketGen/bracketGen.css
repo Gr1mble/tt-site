@@ -16,6 +16,42 @@
   padding: 20px;
 }
 
+.playerList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.playerList h2 {
+  margin-bottom: 20px;
+}
+
+.playerList ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: block;
+}
+
+.playerList li {
+  margin: 5px 0;
+  position: relative;
+  padding-right: 20px; /* Space for the delete button */
+}
+
+.deleteButton {
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+  display: none;
+  color: red;
+}
+
+.playerItem:hover .deleteButton {
+  display: inline;
+}
+
 .bracketSection {
   display: flex;
   flex-direction: column;
@@ -40,13 +76,23 @@
   align-items: center;
 }
 
-.player {
-  margin: 10px;
-  padding: 5px 10px;
-  background-color: #f0f0f0;
-  border-radius: 5px;
-  text-align: center;
-  min-width: 100px;
+.playerList ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: block;
+}
+
+.playerItem {
+  margin: 5px 0;
+  position: relative;
+  padding-right: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.playerItem:hover {
+  color: red;
 }
 
 .line {
@@ -73,4 +119,8 @@
   position: relative;
   top: 10px;
   left: 0;
+}
+
+.error {
+  color: red;
 }

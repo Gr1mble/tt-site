@@ -9,16 +9,17 @@ export const FoodMenu = () => {
       meals: {
         Breakfast: "No breakfast",
         Lunch: "No lunch",
-        Dinner: "Cheeseburger Soup (Choup), Chili",
+        Dinner: "Cheeseburger Soup (Choup), Chili, Eggrolls",
       },
     },
     {
       day: "Saturday",
       meals: {
         Breakfast:
-          "Sausage Gravy and Biscuits, Race Eggs, Cereal, Yogurt/Berries",
-        Lunch: "Brats and Dogs, Cheeseburger Soup (Choup), Chili",
-        Dinner: "Pulled Pork Sandwiches, Collards, Macaroni and Cheese, Salad",
+          "Chicken and Waffles, Sausage Gravy and Biscuits, Race Eggs, Cereal, Yogurt/Berries",
+        Lunch:
+          "Brats and Glizzies, Smoked Chicken, Cheeseburger Soup (Choup), Chili",
+        Dinner: "Wok off the grill, Pulled Pork, Mac n Cheese, Collard Greens",
       },
     },
     {
@@ -26,7 +27,7 @@ export const FoodMenu = () => {
       meals: {
         Breakfast:
           "Sausage Gravy and Biscuits, Race Eggs, Cereal, Yogurt/Berries",
-        Lunch: "Smoked Chicken, Cheeseburger Soup (Choup), Chili, Pulled Pork",
+        Lunch: "Piggy Pops, Leftovers",
         Dinner: "Taco Bar",
       },
     },
