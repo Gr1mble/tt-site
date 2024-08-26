@@ -1,28 +1,38 @@
+/* Navbar styling */
 .container-fluid.navigation {
   position: fixed;
   top: 0;
   width: 100%;
   padding: 10px;
-  margin: 0 auto;
   color: white;
   background-color: black; /* Background of the navigation bar */
-  text-align: center;
   z-index: 1000;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* For desktop */
   align-items: center;
 }
 
+/* Navbar header to align logo and toggler */
+.navbar-header {
+  display: flex;
+  align-items: center;
+}
+
+/* Toggler button styles */
 .navbar-toggler {
   z-index: 10000; /* Ensure hamburger icon has higher z-index */
   position: relative; /* Set position to something other than static */
+  background-color: white; /* Adjust color for visibility on dark backgrounds */
 }
 
+/* Navbar logo */
 .navbar-logo {
   display: flex;
   align-items: center;
+  margin-left: 10px; /* Add spacing between logo and toggler */
 }
 
+/* Navbar picture */
 .navbarPicture {
   border: 3px;
   border-radius: 5px;
@@ -30,10 +40,7 @@
   margin-right: 15px;
 }
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
+/* Navbar links */
 .nav-item {
   color: #fff;
   text-decoration: none;
@@ -43,15 +50,26 @@ body {
   position: relative;
 }
 
+/* Navbar content */
 .navbar-content {
-  display: inline-block;
-  border-bottom: 2px solid black; /* Adjust thickness as needed */
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
 }
 
+/* Navbar link styles */
 .nav-link {
   padding: 10px 15px;
 }
 
+/* Active link styles */
+.nav-link.active-link {
+  text-decoration: underline;
+  text-decoration-color: white;
+  text-underline-offset: 9px;
+}
+
+/* Hover effect for links */
 .nav-link::after {
   content: "";
   display: block;
@@ -66,8 +84,51 @@ body {
   width: 100%;
 }
 
-.navbar-nav .nav-item .nav-link.active-link {
-  text-decoration: underline;
-  text-decoration-color: white;
-  text-underline-offset: 9px;
+/* Dropdown menu styles */
+.dropdown-menu {
+  background-color: black; /* Match the navbar background */
+  border: none; /* Remove default border */
+}
+
+.dropdown-item {
+  color: white; /* Dropdown item text color */
+}
+
+.dropdown-item:hover {
+  background-color: gray; /* Dropdown item hover color */
+}
+
+/* Responsive styles for mobile */
+@media (max-width: 768px) {
+  .container-fluid.navigation {
+    justify-content: flex-start; /* Align items to the left */
+  }
+
+  .navbar-header {
+    display: flex;
+    justify-content: space-between; /* Ensure items are spread out */
+    width: 100%;
+  }
+
+  .navbar-content {
+    display: flex;
+    flex-direction: column; /* Stack nav items vertically */
+    width: 100%; /* Full width */
+    align-items: flex-start; /* Align items to the left */
+    margin-left: 10px; /* Add some left margin for spacing */
+  }
+
+  .navbar-nav {
+    display: flex;
+    flex-direction: column; /* Stack nav items vertically */
+    width: 100%; /* Full width */
+  }
+
+  .navbar-nav .nav-item {
+    margin-bottom: 10px; /* Add spacing between nav items */
+  }
+
+  .navbar-toggler {
+    margin-right: 10px; /* Add spacing between toggler and logo */
+  }
 }

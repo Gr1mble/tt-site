@@ -35,7 +35,7 @@ export const Racenotes = () => {
 
   useEffect(() => {
     getNotes();
-  });
+  }, []);
 
   const onSubmitNotes = async () => {
     try {
@@ -169,15 +169,19 @@ export const Racenotes = () => {
 
       <div className="row">
         <div className="col-sm">
-          {notes
-            .sort((a, b) => b.year - a.year)
-            .map((note, idx) => (
-              <div className="col-lg" key={note.id}>
-                <button className="yearButton" onClick={showNote(note)}>
+          <div className="yearButtonContainer">
+            {notes
+              .sort((a, b) => b.year - a.year)
+              .map((note) => (
+                <button
+                  className="yearButton"
+                  key={note.id}
+                  onClick={showNote(note)}
+                >
                   {note.year}
                 </button>
-              </div>
-            ))}
+              ))}
+          </div>
         </div>
 
         <div className="col-lg" style={{ borderLeft: "2px solid black" }}>

@@ -22,17 +22,19 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <Nav />
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/account" element={<Account />} />
-        <Route path="/racenotes" element={<Racenotes />} />
-        <Route path="/auth" element={<Auth />} />
-        <Route path="/bracketgenerator" element={<BracketGen />} />
-        <Route path="/gamesInfo" element={<GamesInfo />} />
-        <Route path="/gameSigns" element={<GameSigns />} />
-        <Route path="/raceSigns" element={<RaceSigns />} />
-        <Route path="/foodMenu" element={<FoodMenu />} />
-      </Routes>
+      <div className="main-content">
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/racenotes" element={<Racenotes />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/bracketgenerator" element={<BracketGen />} />
+          <Route path="/gamesInfo" element={<GamesInfo />} />
+          <Route path="/gameSigns" element={<GameSigns />} />
+          <Route path="/raceSigns" element={<RaceSigns />} />
+          <Route path="/foodMenu" element={<FoodMenu />} />
+        </Routes>
+      </div>
       <Footer />
     </BrowserRouter>
   </React.StrictMode>

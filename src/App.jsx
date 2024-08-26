@@ -10,10 +10,14 @@ function App() {
   return (
     <div className="container-fluid home">
       <h3>
-        <span style={{ fontSize: "150px" }}>T</span>
-        <span style={{ marginLeft: "-25px" }}>errific </span>
-        <span style={{ fontSize: "150px", marginLeft: "-20px" }}>T</span>
-        <span style={{ marginLeft: "-25px" }}>en</span>
+        <span style={{ fontSize: "150px", color: "black" }}>T</span>
+        <span style={{ marginLeft: "-25px", color: "black" }}>errific </span>
+        <span
+          style={{ fontSize: "150px", marginLeft: "-20px", color: "black" }}
+        >
+          T
+        </span>
+        <span style={{ marginLeft: "-25px", color: "black" }}>en</span>
       </h3>
       <br />
       <br />
