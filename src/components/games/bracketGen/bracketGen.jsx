@@ -8,12 +8,14 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../config/firebase";
 import "./bracketGen.css";
+import { auth } from "../../../config/firebase";
 
 export const BracketGen = () => {
   const [players, setPlayers] = useState([]);
   const [playerName, setPlayerName] = useState("");
   const [bracket, setBracket] = useState([]);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const playerCollectionRef = collection(db, "players");
 
@@ -40,6 +42,7 @@ export const BracketGen = () => {
         setError("Player name cannot be empty.");
         return;
       }
+
       if (
         players.some(
           (player) => player.raceName.toLowerCase() === playerName.toLowerCase()
@@ -76,19 +79,37 @@ export const BracketGen = () => {
   };
 
   const generateBracket = () => {
+    setLoading(true);
     let shuffledPlayers = [...players].sort(() => 0.5 - Math.random());
-    const pairs = [];
+    const rounds = [];
 
     if (shuffledPlayers.length % 2 !== 0) {
       const byePlayer = shuffledPlayers.pop();
-      pairs.push([byePlayer, null]);
+      rounds.push([[byePlayer, null]]);
     }
 
-    for (let i = 0; i < shuffledPlayers.length; i += 2) {
-      pairs.push([shuffledPlayers[i], shuffledPlayers[i + 1]]);
+    while (shuffledPlayers.length > 0) {
+      const round = [];
+      for (let i = 0; i < shuffledPlayers.length; i += 2) {
+        round.push([shuffledPlayers[i], shuffledPlayers[i + 1]]);
+      }
+      rounds.push(round);
+      shuffledPlayers = round.map((match) => match[0]); // Placeholder for the winner's advancement logic
     }
 
-    setBracket(pairs);
+    setBracket([]);
+    loadRounds(rounds);
+  };
+
+  const loadRounds = (rounds, index = 0) => {
+    if (index >= rounds.length) {
+      setLoading(false);
+      return;
+    }
+
+    setBracket((prev) => [...prev, rounds[index]]);
+
+    setTimeout(() => loadRounds(rounds, index + 1), 50); // Adjust delay as needed
   };
 
   return (
@@ -98,8 +119,11 @@ export const BracketGen = () => {
           placeholder="Player Name"
           value={playerName}
           onChange={(e) => setPlayerName(e.target.value)}
+          hidden={!auth?.currentUser}
         />
-        <button onClick={insertToFire}>Submit</button>
+        <button onClick={insertToFire} hidden={!auth?.currentUser}>
+          Submit
+        </button>
         {error && <p className="error">{error}</p>}
       </div>
       <div className="playerList">
@@ -108,8 +132,13 @@ export const BracketGen = () => {
           {players.map((player) => (
             <li
               key={player.id}
-              className="playerItem"
-              onClick={() => deletePlayer(player.id)}
+              className={`playerItem ${
+                auth?.currentUser ? "loggedInHover" : ""
+              }`}
+              onClick={() => auth?.currentUser && deletePlayer(player.id)}
+              style={{
+                cursor: auth?.currentUser ? "pointer" : "default",
+              }}
             >
               {player.raceName}
             </li>
@@ -119,20 +148,23 @@ export const BracketGen = () => {
 
       <div className="bracketSection">
         <h2>Tournament Bracket</h2>
-        <button onClick={generateBracket}>Generate Bracket</button>
+        <button onClick={generateBracket} disabled={loading}>
+          {loading ? "Generating..." : "Generate Bracket"}
+        </button>
         <div className="bracket">
-          {bracket.map((pair, index) => (
-            <div key={index} className="round">
-              <div className="match">
-                <div className="player">
-                  {pair[0] ? pair[0].raceName : "Bye"}
+          {bracket.map((round, roundIndex) => (
+            <div key={roundIndex} className="round">
+              {round.map((match, matchIndex) => (
+                <div key={matchIndex} className="match">
+                  <div className="player">
+                    {match[0] ? match[0].raceName : "Bye"}
+                  </div>
+                  <div className="line"></div>
+                  <div className="player">
+                    {match[1] ? match[1].raceName : "Bye"}
+                  </div>
                 </div>
-                <div className="line"></div>
-                <div className="player">
-                  {pair[1] ? pair[1].raceName : "Bye"}
-                </div>
-              </div>
-              {index < bracket.length - 1 && <div className="connector"></div>}
+              ))}
             </div>
           ))}
         </div>

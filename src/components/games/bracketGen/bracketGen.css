@@ -1,12 +1,9 @@
 .container-fluid.bracketGen {
   padding-top: 100px;
   padding-bottom: 100px;
-  display: block;
   margin: 0 auto;
-  height: auto;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
-  word-wrap: normal;
 }
 
 .container-fluid {
@@ -31,56 +28,6 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  display: block;
-}
-
-.playerList li {
-  margin: 5px 0;
-  position: relative;
-  padding-right: 20px; /* Space for the delete button */
-}
-
-.deleteButton {
-  position: absolute;
-  right: 0;
-  cursor: pointer;
-  display: none;
-  color: red;
-}
-
-.playerItem:hover .deleteButton {
-  display: inline;
-}
-
-.bracketSection {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.bracket {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.round {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 10px 0;
-}
-
-.match {
-  display: flex;
-  align-items: center;
-}
-
-.playerList ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: block;
 }
 
 .playerItem {
@@ -91,36 +38,46 @@
   transition: color 0.3s ease;
 }
 
-.playerItem:hover {
+.playerItem.loggedInHover:hover {
   color: red;
+}
+
+.bracketSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bracket {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.round {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.match {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.player {
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  min-width: 100px;
+  text-align: center;
 }
 
 .line {
-  width: 2px;
-  height: 30px;
+  width: 50px;
+  height: 2px;
   background-color: #000;
   margin: 0 5px;
-}
-
-.connector {
-  width: 20px;
-  height: 20px;
-  border-left: 2px solid #000;
-  border-top: 2px solid #000;
-  margin: -10px 0 10px;
-}
-
-.connector::before {
-  content: "";
-  display: block;
-  height: 2px;
-  width: 20px;
-  background: #000;
-  position: relative;
-  top: 10px;
-  left: 0;
-}
-
-.error {
-  color: red;
 }
