@@ -1,6 +1,5 @@
 .container-fluid.gameSigns {
   padding-top: 100px;
-  padding-bottom: 100px;
   display: block;
   margin: 0 auto;
   height: auto;
@@ -11,21 +10,26 @@
 
 .sign-row {
   display: flex;
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
   justify-content: center;
-  gap: 20px;
+  gap: 10px; /* Reduced gap for mobile */
   margin-bottom: 20px;
 }
 
 .sign-image {
-  height: 250px;
-  width: 250px;
+  height: 150px; /* Reduced size for mobile */
+  width: 150px; /* Reduced size for mobile */
   object-fit: contain;
 }
 
-.formEntry {
-  margin-top: 50px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
+/* Responsive Design */
+@media (max-width: 600px) {
+  .sign-row {
+    gap: 10px; /* Adjust gap for smaller screens */
+  }
+
+  .sign-image {
+    height: 150px;
+    width: 150px;
+  }
 }
