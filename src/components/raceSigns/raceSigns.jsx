@@ -6,44 +6,49 @@ import "./raceSigns.css";
 
 export const RaceSigns = () => {
   const [dataMap, setDataMap] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const raceSignsCollectionRef = collection(db, "raceSigns");
 
-    const unsubscribe = onSnapshot(raceSignsCollectionRef, async (snapshot) => {
-      const signsMap = {};
+    const fetchImageUrls = async (signs) => {
+      const urlPromises = signs.map((sign) =>
+        getDownloadURL(ref(storage, `signPhotos/sign${sign.year}.JPG`))
+          .then((url) => ({ ...sign, photo: url }))
+          .catch((error) => {
+            console.error("Error fetching photo URL:", error);
+            return { ...sign, photo: "" }; // Fallback in case of an error
+          })
+      );
 
-      const dataPromises = snapshot.docs.map(async (doc) => {
-        const docData = doc.data();
-        let photoURL = "";
-        try {
-          photoURL = await getDownloadURL(
-            ref(storage, `signPhotos/sign${docData.year}.JPG`)
-          );
-        } catch (error) {
-          console.error("Error fetching photo URL:", error);
-        }
-        return {
-          id: doc.id,
-          ...docData,
-          photo: photoURL,
-        };
-      });
+      return Promise.all(urlPromises);
+    };
+
+    const unsubscribe = onSnapshot(raceSignsCollectionRef, async (snapshot) => {
+      const signs = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
 
       try {
-        const filteredData = await Promise.all(dataPromises);
-        filteredData.sort((a, b) => b.year.localeCompare(a.year)); // Sort data before mapping to hashmap
-        filteredData.forEach((item) => {
-          signsMap[item.id] = item;
-        });
-        setDataMap(signsMap);
+        const signsWithUrls = await fetchImageUrls(signs);
+        signsWithUrls.sort((a, b) => b.year.localeCompare(a.year));
+        setDataMap(
+          signsWithUrls.reduce((map, sign) => ({ ...map, [sign.id]: sign }), {})
+        );
+        setLoading(false);
       } catch (error) {
         console.error("Error processing race signs:", error);
+        setLoading(false);
       }
     });
 
     return () => unsubscribe();
   }, []);
+
+  if (loading) {
+    return <div className="loading">Loading images...</div>; // Placeholder loading state
+  }
 
   return (
     <div className="container raceSigns">
@@ -60,7 +65,12 @@ export const RaceSigns = () => {
           {Object.entries(dataMap).map(([id, item]) => (
             <div className="col item" key={id}>
               <h2 className="photo">{item.title}</h2>
-              <img className="signPhoto" src={item.photo} alt={item.title} />
+              <img
+                className="signPhoto"
+                src={item.photo || "/path/to/placeholder.jpg"} // Placeholder image
+                alt={item.title}
+                loading="lazy" // Lazy loading
+              />
               <p className="photo">{item.desc}</p>
             </div>
           ))}
