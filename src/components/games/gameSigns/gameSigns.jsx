@@ -1,40 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import "./gameSigns.css";
-import { db } from "../../../config/firebase";
-import { collection, addDoc } from "firebase/firestore";
-
+import dartFront from "../../../assets/dartFront.JPG";
+import dartBack from "../../../assets/dartBack.JPG";
+import euchreFront from "../../../assets/euchreFront.JPG";
+import euchreBack from "../../../assets/euchreBack.JPG";
+import horseShoeFront from "../../../assets/horseShoeFront.JPG";
+import horseShoeBack from "../../../assets/horseShoeBack.JPG";
 export const GameSigns = () => {
-  const [dartsNew, setDartsNew] = useState("");
-  const [euchreNew, setEuchreNew] = useState("");
-  const [horseshoesNew, setHorseshoesNew] = useState("");
-  const [pokerNew, setPokerNew] = useState("");
-  const [yearNew, setYearNew] = useState("");
-
-  const dbRef = collection(db, "yearlyWinners");
-
-  const resetStates = () => {
-    setDartsNew("");
-    setEuchreNew("");
-    setHorseshoesNew("");
-    setPokerNew("");
-    setYearNew("");
-  };
-
-  const insertToFire = async () => {
-    try {
-      await addDoc(dbRef, {
-        year: yearNew,
-        darts: dartsNew,
-        euchre: euchreNew,
-        horseshoes: horseshoesNew,
-        poker: pokerNew,
-      });
-      resetStates();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <div className="container-fluid gameSigns">
       <h2>Game trophy signs!</h2>
@@ -46,38 +18,18 @@ export const GameSigns = () => {
       <h3>Darts Euchre Horseshoes</h3>
       <br />
       <div className="sign-row">
+        <img className="sign-image" src={dartFront} alt="Darts Front" />
+        <img className="sign-image" src={euchreFront} alt="Euchre Front" />
         <img
           className="sign-image"
-          src="src\assets\dartFront.JPG"
-          alt="Darts Front"
-        />
-        <img
-          className="sign-image"
-          src="src\assets\euchreFront.JPG"
-          alt="Euchre Front"
-        />
-        <img
-          className="sign-image"
-          src="src\assets\horseShoeFront.JPG"
+          src={horseShoeFront}
           alt="Horseshoes Front"
         />
       </div>
       <div className="sign-row">
-        <img
-          className="sign-image"
-          src="src\assets\dartBack.JPG"
-          alt="Darts Back"
-        />
-        <img
-          className="sign-image"
-          src="src\assets\euchreBack.JPG"
-          alt="Euchre Back"
-        />
-        <img
-          className="sign-image"
-          src="src\assets\horseShoeBack.JPG"
-          alt="Horseshoes Back"
-        />
+        <img className="sign-image" src={dartBack} alt="Darts Back" />
+        <img className="sign-image" src={euchreBack} alt="Euchre Back" />
+        <img className="sign-image" src={horseShoeBack} alt="Horseshoes Back" />
       </div>
     </div>
   );
