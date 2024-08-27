@@ -1,10 +1,10 @@
 /* Auth Page Styles */
 .container-fluid.auth {
+  padding-top: 100px;
   padding-bottom: 100px;
   display: flex;
   align-items: center;
   justify-content: center; /* Center align content horizontally */
-  height: 100vh;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
   background-color: #f8f9fa; /* Light background for contrast */
