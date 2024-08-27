@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./gameSigns.css";
-import { auth, db } from "../../../config/firebase";
-import { collection, doc, addDoc } from "firebase/firestore";
+import { db } from "../../../config/firebase";
+import { collection, addDoc } from "firebase/firestore";
 
 export const GameSigns = () => {
   const [dartsNew, setDartsNew] = useState("");
@@ -37,34 +37,47 @@ export const GameSigns = () => {
 
   return (
     <div className="container-fluid gameSigns">
-      <div className="formEntry">
-        <input
-          placeholder="year"
-          value={yearNew}
-          onChange={(e) => setYearNew(e.target.value)}
-        ></input>
-        <input
-          placeholder="darts"
-          value={dartsNew}
-          onChange={(e) => setDartsNew(e.target.value)}
-        ></input>
-        <input
-          placeholder="euchre"
-          value={euchreNew}
-          onChange={(e) => setEuchreNew(e.target.value)}
-        ></input>
-        <input
-          placeholder="horseshoes"
-          value={horseshoesNew}
-          onChange={(e) => setHorseshoesNew(e.target.value)}
-        ></input>
-        <input
-          placeholder="poker"
-          value={pokerNew}
-          onChange={(e) => setPokerNew(e.target.value)}
-        ></input>
-
-        <button onClick={insertToFire}>Submit</button>
+      <h2>Game trophy signs!</h2>
+      <h3>
+        Here are the front and back pictures with the concurrent winners in
+        order
+      </h3>
+      <br />
+      <h3>Darts Euchre Horseshoes</h3>
+      <br />
+      <div className="sign-row">
+        <img
+          className="sign-image"
+          src="src\assets\dartFront.JPG"
+          alt="Darts Front"
+        />
+        <img
+          className="sign-image"
+          src="src\assets\euchreFront.JPG"
+          alt="Euchre Front"
+        />
+        <img
+          className="sign-image"
+          src="src\assets\horseShoeFront.JPG"
+          alt="Horseshoes Front"
+        />
+      </div>
+      <div className="sign-row">
+        <img
+          className="sign-image"
+          src="src\assets\dartBack.JPG"
+          alt="Darts Back"
+        />
+        <img
+          className="sign-image"
+          src="src\assets\euchreBack.JPG"
+          alt="Euchre Back"
+        />
+        <img
+          className="sign-image"
+          src="src\assets\horseShoeBack.JPG"
+          alt="Horseshoes Back"
+        />
       </div>
     </div>
   );
