@@ -29,10 +29,9 @@
 .navbar-logo {
   display: flex;
   align-items: center;
-  margin-left: 10px; /* Add spacing between logo and toggler */
+  margin-left: 10px;
 }
 
-/* Navbar picture */
 .navbarPicture {
   border: 3px;
   border-radius: 5px;
@@ -50,26 +49,23 @@
   position: relative;
 }
 
-/* Navbar content */
 .navbar-content {
   display: flex;
   flex-grow: 1;
   justify-content: center;
 }
 
-/* Navbar link styles */
 .nav-link {
   padding: 10px 15px;
+  color: black;
 }
 
-/* Active link styles */
 .nav-link.active-link {
   text-decoration: underline;
   text-decoration-color: white;
   text-underline-offset: 9px;
 }
 
-/* Hover effect for links */
 .nav-link::after {
   content: "";
   display: block;
@@ -82,6 +78,12 @@
 
 .nav-link:hover::after {
   width: 100%;
+  color: #cc0000;
+}
+
+.nav-link:hover {
+  width: 100%;
+  color: #cc0000;
 }
 
 /* Dropdown menu styles */
@@ -95,7 +97,8 @@
 }
 
 .dropdown-item:hover {
-  background-color: gray; /* Dropdown item hover color */
+  background-color: #cc0000;
+  color: white;
 }
 
 /* Responsive styles for mobile */
