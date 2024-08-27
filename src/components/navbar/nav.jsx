@@ -77,11 +77,12 @@ export const Nav = () => {
               Home
             </Link>
           </li>
-          <li className="nav-item">
-            <Link to="/history" className="nav-link" onClick={handleLinkClick}>
-              History
-            </Link>
-          </li>
+          {/* <li className="nav-item">
+  <Link to="/history" className="nav-link" onClick={handleLinkClick}>
+    History
+  </Link>
+</li> */}
+
           <li className="nav-item">
             <Link
               to="/racesigns"

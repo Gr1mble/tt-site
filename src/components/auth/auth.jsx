@@ -40,23 +40,36 @@ export const Auth = () => {
 
   return (
     <div className="container-fluid auth">
-      <input
-        placeholder="Email"
-        onChange={(e) => setEmail(e.target.value)}
-      ></input>
-      <input
-        placeholder="Password"
-        onChange={(e) => setPassword(e.target.value)}
-      ></input>
-      <button onClick={signIn}>Sign In</button>
-
-      <button onClick={signInWithGoogle}>Sign in with Google</button>
-      <p style={{ color: auth?.currentUser?.uid ? "green" : "red" }}>
-        {auth?.currentUser?.email}
-      </p>
-      <button hidden={!auth?.currentUser} onClick={logout}>
-        Logout
-      </button>
+      <div className="auth-form">
+        <h1 className="auth-title">Sign In</h1>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="auth-input"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="auth-input"
+        />
+        <button onClick={signIn} className="auth-button">
+          Sign In
+        </button>
+        <button onClick={signInWithGoogle} className="auth-button google-btn">
+          Sign in with Google
+        </button>
+        <button
+          hidden={!auth?.currentUser}
+          onClick={logout}
+          className="auth-button logout-btn"
+        >
+          Logout
+        </button>
+      </div>
     </div>
   );
 };
