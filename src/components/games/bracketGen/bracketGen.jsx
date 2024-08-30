@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   collection,
   getDocs,
@@ -73,24 +73,33 @@ export const BracketGen = () => {
     setLoading(true);
     let shuffledPlayers = [...players].sort(() => Math.random() - 0.5);
     const rounds = [];
-
-    while (shuffledPlayers.length > 1) {
-      const round = [];
-      if (shuffledPlayers.length % 2 !== 0) {
-        round.push([{ name: "Bye" }, shuffledPlayers.pop()]);
-      }
-
-      for (let i = 0; i < shuffledPlayers.length; i += 2) {
-        round.push([shuffledPlayers[i], shuffledPlayers[i + 1]]);
-      }
-
-      rounds.push(round);
-      shuffledPlayers = round.map((match) => match[0]); // Winners advance in next round
+  
+    const firstRound = [];
+    if (shuffledPlayers.length % 2 !== 0) {
+      firstRound.push([{ name: "Bye" }, shuffledPlayers.pop()]);
     }
-
+  
+    for (let i = 0; i < shuffledPlayers.length; i += 2) {
+      firstRound.push([shuffledPlayers[i], shuffledPlayers[i + 1]]);
+    }
+  
+    rounds.push(firstRound);
+  
+    while (rounds[rounds.length - 1].length > 1) {
+      const previousRound = rounds[rounds.length - 1];
+      const nextRound = [];
+  
+      for (let i = 0; i < previousRound.length; i += 2) {
+        nextRound.push([previousRound[i][0], previousRound[i + 1]?.[0] || { name: "Bye" }]);
+      }
+  
+      rounds.push(nextRound);
+    }
+  
     setBracket(rounds);
     setLoading(false);
   };
+  
 
   return (
     <div className="bracket-container">
