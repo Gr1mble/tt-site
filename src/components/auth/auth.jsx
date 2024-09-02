@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { auth, googleProvider } from "../../config/firebase";
 import {
-  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
 } from "firebase/auth";
@@ -13,7 +13,7 @@ export const Auth = () => {
 
   const signIn = async () => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, password);
       window.location.href = "/"; // Redirect to the home page ("/") after successful sign-in
     } catch (err) {
       console.log(err);
