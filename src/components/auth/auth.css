@@ -17,6 +17,7 @@
   width: 100%;
   max-width: 400px; /* Maximum width for larger screens */
   box-sizing: border-box; /* Ensure padding is included in width */
+  padding: 20px;
 }
 
 .auth-title {
