@@ -1,4 +1,3 @@
-import React from "react";
 import "./foodMenu.css";
 import "../../css/accordian.css";
 

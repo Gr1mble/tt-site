@@ -1,4 +1,3 @@
-import React from "react";
 import "./App.css";
 import Rainbow from "../src/assets/rainbow.jpg";
 
@@ -26,8 +25,8 @@ function App() {
       </h4>
       <p>
         The Race is an annual event that occurs every Labor Day weekend. This
-        event is to commemorate the creation of the 'Terrific Ten' which takes
-        place from Friday to Monday!
+        event is to commemorate the creation of the Terrific Ten which takes
+        place from Friday through Monday!
       </p>
       <img id="rainbowImg" src={Rainbow} alt="Rainbow over Little Lake" />
     </div>

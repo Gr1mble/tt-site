@@ -1,4 +1,4 @@
-import React from "react";
+// eslint-disable-next-line no-unused-vars
 import { auth } from "../../config/firebase";
 import "./account.css";
 

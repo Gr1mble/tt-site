@@ -1,4 +1,3 @@
-import React from "react";
 import "./gameSigns.css";
 import dartFront from "../../../assets/dartFront.JPG";
 import dartBack from "../../../assets/dartBack.JPG";
