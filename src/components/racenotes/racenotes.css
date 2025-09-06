@@ -53,6 +53,25 @@
   justify-content: flex-end;
 }
 
+.toolButton {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  color: #007bff;
+  background-color: transparent;
+  border: 1px solid #000000; /* Outline buttons */
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  display: block;
+  width: fit-content;
+  height: fit-content;
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 .toolButtonContainer .toolButton {
   margin-left: 10px;
   margin-right: 10px;

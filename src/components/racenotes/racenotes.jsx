@@ -15,6 +15,9 @@ export const Racenotes = () => {
   const [notes, setNotes] = useState([]);
   const [newYear, setNewYear] = useState("");
   const [newDescription, setNewDescription] = useState("");
+  const [newMotionMember, setNewMotionMember] = useState("");
+  const [newMotion, setNewMotion] = useState("");
+
   const [modalShow, setModalShow] = useState(false);
   const [selectedNote, setSelectedNote] = useState(null);
 
@@ -29,28 +32,44 @@ export const Racenotes = () => {
       }));
       setNotes(filteredData);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   useEffect(() => {
     getNotes();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSubmitNotes = async () => {
+    if (!newYear || !newDescription) {
+      alert("Please enter both year and description.");
+      return;
+    }
+
     try {
       if (selectedNote && selectedNote.id) {
-        await editDescription(selectedNote.id); // Edit existing note
+        // Edit existing note
+        await updateDoc(doc(db, "notes", selectedNote.id), {
+          year: newYear,
+          description: newDescription,
+          member: newMotionMember,
+          motion: newMotion,
+        });
       } else {
+        // Add new note
         await addDoc(notesCollectionRef, {
           year: newYear,
           description: newDescription,
-        }); // Add new note
-        getNotes();
-        toggleModal();
+          member: newMotionMember,
+          motion: newMotion,
+        });
       }
+
+      await getNotes();
+      toggleModal();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -58,45 +77,35 @@ export const Racenotes = () => {
     try {
       const noteDoc = doc(db, "notes", id);
       await deleteDoc(noteDoc);
-      await resetStates();
+      resetStates();
       await getNotes();
     } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const editDescription = async (id) => {
-    try {
-      const note = notes.find((note) => note.id === id);
-
-      if (note) {
-        await updateDoc(doc(db, "notes", id), {
-          description: newDescription,
-          year: newYear,
-        });
-        await getNotes();
-      } else {
-      }
-    } catch (error) {
-      console.log(error);
-      alert("Please select a year");
+      console.error(error);
     }
   };
 
   const toggleModal = () => {
+    const closing = modalShow;
     setModalShow(!modalShow);
+    if (closing) {
+      resetStates();
+    }
   };
 
   const showNote = (note) => () => {
     setSelectedNote(note);
     setNewDescription(note.description);
     setNewYear(note.year);
+    setNewMotionMember(note.member);
+    setNewMotion(note.motion);
   };
 
   const resetStates = () => {
     setSelectedNote(null);
     setNewDescription("");
     setNewYear("");
+    setNewMotionMember("");
+    setNewMotion("");
   };
 
   return (
@@ -104,13 +113,9 @@ export const Racenotes = () => {
       <div className="row">
         <div
           className="col-sm d-flex justify-content-between align-items-center"
-          style={{
-            borderBottom: "2px solid black",
-          }}
+          style={{ borderBottom: "2px solid black" }}
         >
-          <h3 id="yearsText" className="mr-3">
-            Years
-          </h3>
+          <h3 id="yearsText" className="mr-3">Years</h3>
           <button
             hidden={!auth?.currentUser}
             onClick={() => {
@@ -118,9 +123,7 @@ export const Racenotes = () => {
               toggleModal();
             }}
             className="toolButton"
-            style={{
-              marginLeft: "auto",
-            }}
+            style={{ marginLeft: "auto" }}
           >
             +
           </button>
@@ -133,18 +136,11 @@ export const Racenotes = () => {
             borderBottom: "2px solid black",
           }}
         >
-          <h3 id="yearsText" className="mr-3">
-            Notes
-          </h3>
-          <div
-            className="toolButtonContainer"
-            style={{
-              marginLeft: "auto",
-            }}
-          >
+          <h3 id="yearsText" className="mr-3">Notes</h3>
+          <div className="toolButtonContainer" style={{ marginLeft: "auto" }}>
             <button
               type="button"
-              hidden={!auth?.currentUser}
+              hidden={!auth?.currentUser || !selectedNote}
               disabled={!selectedNote}
               className="toolButton"
               onClick={() => deleteNote(selectedNote?.id)}
@@ -153,13 +149,10 @@ export const Racenotes = () => {
             </button>
             <button
               type="button"
-              hidden={!auth?.currentUser}
+              hidden={!auth?.currentUser || !selectedNote}
               disabled={!selectedNote}
               className="toolButton"
-              onClick={() => {
-                toggleModal();
-                editDescription(selectedNote?.id);
-              }}
+              onClick={() => toggleModal()}
             >
               Edit
             </button>
@@ -185,13 +178,18 @@ export const Racenotes = () => {
         </div>
 
         <div className="col-lg" style={{ borderLeft: "2px solid black" }}>
+          <h4>Description</h4>
           <p>{newDescription}</p>
+          <br></br>
+          <h4>Motions</h4>
+          <div><h3>Member: </h3><p>{newMotionMember}</p></div>
+          <div><h3>Motion: </h3><p>{newMotion}</p></div>
         </div>
       </div>
 
       <Modal show={modalShow} onHide={toggleModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Notes</Modal.Title>
+          <Modal.Title>{selectedNote ? "Edit Note" : "Add Note"}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <input
@@ -207,6 +205,23 @@ export const Racenotes = () => {
             value={newDescription}
             className="modalInput"
             onChange={(e) => setNewDescription(e.target.value)}
+          />
+          <br></br>
+                    <br></br>
+
+          <input
+            type="text"
+            placeholder="Member"
+            value={newMotionMember}
+            className="modalInput"
+            onChange={(e) => setNewMotionMember(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Motion"
+            value={newMotion}
+            className="modalInput"
+            onChange={(e) => setNewMotion(e.target.value)}
           />
         </Modal.Body>
         <Modal.Footer>

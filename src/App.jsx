@@ -19,7 +19,6 @@ function App() {
         <span style={{ marginLeft: "-25px", color: "black" }}>en</span>
       </h3>
       <br />
-      <br />
       <h4 style={{ fontWeight: "bold" }}>
         Welcome to the official North Carolina Race Headquarters!
       </h4>

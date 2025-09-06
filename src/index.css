@@ -18,7 +18,6 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 20px; /* Optional: Add some padding for spacing */
 }
 
 /* Navbar styling */
@@ -44,7 +43,7 @@ body {
 
 /* Home container */
 .container-fluid.home {
-  padding-top: 100px; /* Ensure there's space for the fixed navbar */
+  padding-top: 90px; /* Ensure there's space for the fixed navbar */
   padding-bottom: 50px; /* Add space for footer */
   display: block;
   margin: 0 auto;
