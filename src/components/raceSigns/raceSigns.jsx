@@ -72,6 +72,7 @@ export const RaceSigns = () => {
                 loading="lazy" // Lazy loading
               />
               <p className="photo">{item.desc}</p>
+              <br></br>
             </div>
           ))}
         </div>
