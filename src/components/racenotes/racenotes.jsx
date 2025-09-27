@@ -15,8 +15,7 @@ export const Racenotes = () => {
   const [notes, setNotes] = useState([]);
   const [newYear, setNewYear] = useState("");
   const [newDescription, setNewDescription] = useState("");
-  const [newMotionMember, setNewMotionMember] = useState("");
-  const [newMotion, setNewMotion] = useState("");
+  const [motions, setMotions] = useState([{ member: "", motion: "" }]);
 
   const [modalShow, setModalShow] = useState(false);
   const [selectedNote, setSelectedNote] = useState(null);
@@ -38,7 +37,7 @@ export const Racenotes = () => {
 
   useEffect(() => {
     getNotes();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSubmitNotes = async () => {
@@ -47,22 +46,24 @@ export const Racenotes = () => {
       return;
     }
 
+    const filteredMotions = motions.filter(
+      (m) => m.member.trim() || m.motion.trim()
+    );
+
     try {
       if (selectedNote && selectedNote.id) {
         // Edit existing note
         await updateDoc(doc(db, "notes", selectedNote.id), {
           year: newYear,
           description: newDescription,
-          member: newMotionMember,
-          motion: newMotion,
+          motions: filteredMotions,
         });
       } else {
         // Add new note
         await addDoc(notesCollectionRef, {
           year: newYear,
           description: newDescription,
-          member: newMotionMember,
-          motion: newMotion,
+          motions: filteredMotions,
         });
       }
 
@@ -96,16 +97,14 @@ export const Racenotes = () => {
     setSelectedNote(note);
     setNewDescription(note.description);
     setNewYear(note.year);
-    setNewMotionMember(note.member);
-    setNewMotion(note.motion);
+    setMotions(note.motions || [{ member: "", motion: "" }]);
   };
 
   const resetStates = () => {
     setSelectedNote(null);
     setNewDescription("");
     setNewYear("");
-    setNewMotionMember("");
-    setNewMotion("");
+    setMotions([{ member: "", motion: "" }]);
   };
 
   return (
@@ -115,7 +114,9 @@ export const Racenotes = () => {
           className="col-sm d-flex justify-content-between align-items-center"
           style={{ borderBottom: "2px solid black" }}
         >
-          <h3 id="yearsText" className="mr-3">Years</h3>
+          <h3 id="yearsText" className="mr-3">
+            Years
+          </h3>
           <button
             hidden={!auth?.currentUser}
             onClick={() => {
@@ -136,7 +137,9 @@ export const Racenotes = () => {
             borderBottom: "2px solid black",
           }}
         >
-          <h3 id="yearsText" className="mr-3">Notes</h3>
+          <h3 id="yearsText" className="mr-3">
+            Notes
+          </h3>
           <div className="toolButtonContainer" style={{ marginLeft: "auto" }}>
             <button
               type="button"
@@ -180,10 +183,14 @@ export const Racenotes = () => {
         <div className="col-lg" style={{ borderLeft: "2px solid black" }}>
           <h4>Description</h4>
           <p>{newDescription}</p>
-          <br></br>
+          <br />
           <h4>Motions</h4>
-          <div><h3>Member: </h3><p>{newMotionMember}</p></div>
-          <div><h3>Motion: </h3><p>{newMotion}</p></div>
+          {selectedNote?.motions?.map((pair, index) => (
+            <div className="motionContainer" key={index}>
+              <p>Member: {pair.member}</p>
+              <p>Motion: {pair.motion}</p>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -192,6 +199,7 @@ export const Racenotes = () => {
           <Modal.Title>{selectedNote ? "Edit Note" : "Add Note"}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <h5>Year</h5>
           <input
             type="number"
             placeholder="Year"
@@ -199,6 +207,7 @@ export const Racenotes = () => {
             className="modalInput"
             onChange={(e) => setNewYear(e.target.value)}
           />
+          <h5>Description</h5>
           <input
             type="text"
             placeholder="Description"
@@ -206,23 +215,42 @@ export const Racenotes = () => {
             className="modalInput"
             onChange={(e) => setNewDescription(e.target.value)}
           />
-          <br></br>
-                    <br></br>
-
-          <input
-            type="text"
-            placeholder="Member"
-            value={newMotionMember}
-            className="modalInput"
-            onChange={(e) => setNewMotionMember(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Motion"
-            value={newMotion}
-            className="modalInput"
-            onChange={(e) => setNewMotion(e.target.value)}
-          />
+          <br />
+          <h5>Motions</h5>
+          <div className="modalMotions">
+            {motions.map((pair, index) => (
+              <div key={index} className="motion-pair">
+                <input
+                  type="text"
+                  placeholder="Member"
+                  className="modalInput"
+                  value={pair.member}
+                  onChange={(e) => {
+                    const updated = [...motions];
+                    updated[index].member = e.target.value;
+                    setMotions(updated);
+                  }}
+                />
+                <input
+                  type="text"
+                  placeholder="Motion"
+                  className="modalInput"
+                  value={pair.motion}
+                  onChange={(e) => {
+                    const updated = [...motions];
+                    updated[index].motion = e.target.value;
+                    setMotions(updated);
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+          <Button
+            variant="link"
+            onClick={() => setMotions([...motions, { member: "", motion: "" }])}
+          >
+            + Add Member/Motion
+          </Button>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={toggleModal}>

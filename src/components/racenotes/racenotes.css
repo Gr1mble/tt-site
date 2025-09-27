@@ -124,6 +124,7 @@
   padding: var(--bs-modal-padding);
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .modal-footer {
@@ -131,14 +132,31 @@
   flex-direction: column;
 }
 
+.motion-pair {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.motion-pair .modalInput {
+  flex: 1;
+}
+
+.modalMotions {
+  padding: var(--bs-modal-padding);
+  justify-content: center;
+  align-items: center;
+}
+
 .modalInput {
   border-radius: 15px;
   text-align: center;
   padding: 10px;
-  width: 100%; /* Full width inputs */
-  margin-bottom: 15px; /* Space between inputs */
-  border: 1px solid #ddd; /* Border for input */
-  transition: border-color 0.3s ease; /* Smooth transition for focus */
+  width: 100%;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  transition: border-color 0.3s ease;
 }
 .modalInput:focus {
   border-color: #007bff;
@@ -154,6 +172,10 @@ p {
   padding: 3px;
   font-size: 18px; /* Consistent font size */
   color: #333; /* Text color */
+}
+
+.motionContainer {
+  border: 2px solid #000000;
 }
 
 @media (max-width: 600px) {
