@@ -2,92 +2,68 @@
 .container.raceNotes {
   padding-top: 100px;
   padding-bottom: 100px;
-  display: block;
   margin: 0 auto;
-  height: auto;
-  text-align: center;
   font-family: Arial, Helvetica, sans-serif;
-  word-wrap: normal;
+  text-align: center;
+  height: auto;
 }
 
 .row {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 15px; /* Increased margin for better spacing */
+  margin-bottom: 15px;
 }
 
 /* Year Buttons Grid */
 .yearButtonContainer {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(150px, 1fr)
-  ); /* Default grid layout */
-  gap: 15px; /* Space between buttons */
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
   padding: 10px;
 }
 
 /* Button Styles */
 .yearButton {
   border-radius: 8px;
-  background-color: #ffffff;
+  background-color: #fff;
   color: #333;
   font-size: 16px;
   padding: 10px;
-  transition: all 0.3s ease; /* Smooth transition for hover/focus effects */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for buttons */
-  border: 1px solid #ddd; /* Border for structure */
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
 }
+
 .yearButton:focus,
 .yearButton:hover {
   background-color: #007bff;
   color: white;
   border-color: #007bff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Increased shadow on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .toolButtonContainer {
   display: flex;
   flex-direction: row-reverse;
-  height: fit-content;
   justify-content: flex-end;
 }
 
 .toolButton {
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-bottom: 10px;
+  margin: 0 10px 10px;
   color: #007bff;
   background-color: transparent;
-  border: 1px solid #000000; /* Outline buttons */
+  border: 1px solid #000;
   cursor: pointer;
-  overflow: hidden;
-  outline: none;
   display: block;
   width: fit-content;
-  height: fit-content;
   padding: 5px 10px;
-  font-size: 14px;
   border-radius: 4px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 14px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .toolButtonContainer .toolButton {
-  margin-left: 10px;
-  margin-right: 10px;
-  color: #007bff;
-  background-color: transparent;
-  border: 1px solid #00ff37; /* Outline buttons */
-  cursor: pointer;
-  overflow: hidden;
-  outline: none;
-  display: block;
-  width: fit-content;
-  height: fit-content;
-  padding: 5px 10px;
-  font-size: 14px;
-  border-radius: 4px;
-  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
+  border-color: #00ff37;
 }
 
 .toolButton:focus,
@@ -97,6 +73,7 @@
   border-color: #0056b3;
 }
 
+/* Backdrop */
 .backdrop {
   background-color: rgba(0, 0, 0, 0.6);
   position: fixed;
@@ -115,98 +92,165 @@
   z-index: 9999;
   width: 90%;
   max-width: 400px;
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* More prominent shadow */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .modal-body {
   display: flex;
-  padding: var(--bs-modal-padding);
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  padding: var(--bs-modal-padding);
 }
 
 .modal-footer {
   display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Align labels left / inputs right */
+.modalRow,
+.otherNotesRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.modalRow h5 {
+  margin: 0;
+  margin-right: 10px;
+}
+
+.modalInput {
+  border-radius: 12px;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ddd;
+  text-align: left;
+  transition: border-color 0.3s;
+}
+
+.modalInput:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.modalMotions {
+  display: flex;
   flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
 .motion-pair {
   display: flex;
   gap: 10px;
-  margin-bottom: 10px;
-  width: 100%;
+  align-items: center;
+  padding: 5px 0;
 }
 
-.motion-pair .modalInput {
+.motion-pair.new {
+  background-color: #e6f7ff;
+  border-radius: 8px;
+  padding: 8px;
+  animation: highlight 2s forwards;
+}
+
+.motionField {
+  display: flex;
+  flex-direction: column;
   flex: 1;
 }
 
-.modalMotions {
-  padding: var(--bs-modal-padding);
-  justify-content: center;
-  align-items: center;
+.motionField label {
+  font-weight: bold;
+  margin-bottom: 4px;
 }
 
-.modalInput {
-  border-radius: 15px;
-  text-align: center;
-  padding: 10px;
+.motionField input,
+.motionTextarea {
   width: 100%;
-  margin-bottom: 15px;
+  padding: 8px;
+  border-radius: 12px;
   border: 1px solid #ddd;
-  transition: border-color 0.3s ease;
+  text-align: left;
+  resize: vertical;
+  min-height: 50px;
+  transition: border-color 0.3s;
+  border-bottom: 1px solid #ddd;
 }
-.modalInput:focus {
+
+.motionField input:focus,
+.motionTextarea:focus {
   border-color: #007bff;
+  outline: none;
 }
 
-* {
-  box-sizing: border-box;
+.motionTextarea.autoResize {
+  width: 100%;
+  min-height: 40px; /* starting height */
+  overflow: hidden; /* hide scrollbars */
+  resize: none; /* prevent manual resize */
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+  border-bottom: 1px solid #ddd;
 }
 
-h3,
-p {
-  margin: 0;
-  padding: 3px;
-  font-size: 18px; /* Consistent font size */
-  color: #333; /* Text color */
+.modalChunk {
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd;
 }
 
-.motionContainer {
-  border: 2px solid #000000;
+/* Animation for new row highlight */
+@keyframes highlight {
+  0% {
+    background-color: #e6f7ff;
+  }
+  100% {
+    background-color: transparent;
+  }
 }
 
+/* Notes input */
+#otherNotesInput {
+  width: 100%;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+  margin-top: 10px;
+}
+
+/* Responsive Styles */
 @media (max-width: 600px) {
   .container.raceNotes {
-    padding: 20px;
-    padding-top: 50px;
-    width: 90%;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    padding: 20px 10px;
   }
 
   h3,
+  h5,
   p {
-    font-size: 18px; /* Slightly smaller font for mobile */
+    font-size: 16px;
   }
 
   .yearButtonContainer {
-    grid-template-columns: repeat(
-      auto-fill,
-      minmax(100px, 1fr)
-    ); /* Smaller buttons for mobile */
-    gap: 10px; /* Adjust space between buttons */
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
   }
 
   .yearButton {
-    font-size: 14px; /* Smaller font size */
-    padding: 8px; /* Smaller padding */
-  }
-
-  .toolButtonContainer .toolButton {
-    margin: 5px; /* Adjust spacing for smaller screens */
+    font-size: 14px;
+    padding: 8px;
   }
 
   .modal {
@@ -214,12 +258,20 @@ p {
     max-width: 400px;
   }
 
-  .modal-footer {
+  .modalRow,
+  .motion-pair,
+  .otherNotesRow {
     flex-direction: column;
+    align-items: stretch;
   }
 
-  .modalInput {
-    border-radius: 8px;
-    text-align: center;
+  .modalInput,
+  .motionTextarea {
+    width: 100%;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+    gap: 5px;
   }
 }
